@@ -1,0 +1,394 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ryan Exner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ryan Exner, software engineer. Builder of EnderBeam and GardensMC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: home = short intro + grid of project cards with illustrated covers; each card opens its own case-study view (#enderbeam, #gardens, #portals). Each project has its own tint from its world: End violet, garden moss, nether amber. */
+:root {
+  --bg: #f4f5f1;
+  --surface: #ffffff;
+  --ink: #1a1f1c;
+  --muted: #5d6760;
+  --line: #dde2da;
+  --accent: #2c6e49;
+  --end: #6a58c9;   --end-soft: #ece9fb;
+  --moss: #3d8a52;  --moss-soft: #e3f0e5;
+  --amber: #c9702a; --amber-soft: #fbeee2;
+  --shadow: 0 1px 2px rgba(26,31,28,.06), 0 8px 24px rgba(26,31,28,.07);
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121614; --surface: #1a201c; --ink: #e8ece8; --muted: #9ba69e; --line: #2b352f; --accent: #74c08f;
+  --end: #a596f2; --end-soft: #24203b; --moss: #74c08f; --moss-soft: #1b2b20; --amber: #f0a25e; --amber-soft: #33251a;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121614; --surface: #1a201c; --ink: #e8ece8; --muted: #9ba69e; --line: #2b352f; --accent: #74c08f;
+  --end: #a596f2; --end-soft: #24203b; --moss: #74c08f; --moss-soft: #1b2b20; --amber: #f0a25e; --amber-soft: #33251a;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme: dark }
+
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 40px 64px; display: flex; flex-direction: column; gap: 48px }
+a { color: var(--accent); text-underline-offset: 3px }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.12 }
+p { margin: 0; max-width: 65ch }
+.label { font-family: var(--font-mono); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+
+/* top bar */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 1.1rem }
+.mark { display: grid; grid-template-columns: repeat(3, 7px); gap: 2px }
+.mark i { width: 7px; height: 7px; border-radius: 2px; display: block; background: var(--moss) }
+.mark i:nth-child(2) { background: var(--end) } .mark i:nth-child(6) { background: var(--amber) } .mark i:nth-child(4), .mark i:nth-child(8) { background: var(--line) }
+.toplinks { display: flex; gap: 8px }
+.pill { font-family: var(--font-mono); font-size: .85rem; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px }
+.pill:hover { border-color: var(--accent) }
+
+/* home */
+.home { display: flex; flex-direction: column; gap: 40px }
+.intro { display: flex; flex-direction: column; gap: 14px; padding-top: 12px }
+.intro h1 { font-size: clamp(2.2rem, 6.5vw, 3.6rem); font-weight: 800; letter-spacing: -.025em; max-width: 14em }
+.intro h1 em { font-style: normal; color: var(--accent) }
+.intro p { font-size: 1.12rem; color: var(--muted); max-width: 40em }
+
+/* cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px }
+.card { --tint: var(--moss); --tint-soft: var(--moss-soft); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--ink); box-shadow: var(--shadow); min-width: 0 }
+.card.end { --tint: var(--end); --tint-soft: var(--end-soft) } .card.amber { --tint: var(--amber); --tint-soft: var(--amber-soft) }
+.card .cover { aspect-ratio: 16 / 10; background: var(--tint-soft); display: block; max-width: 100% }
+.card .cover svg { width: 100%; height: 100%; display: block }
+.card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1 }
+.card h3 { font-size: 1.35rem; font-weight: 700 }
+.card p { color: var(--muted); font-size: .96rem }
+.card .meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px }
+.tag { font-family: var(--font-mono); font-size: .74rem; padding: 3px 9px; border-radius: 999px; background: var(--tint-soft, var(--moss-soft)); color: var(--ink) }
+.card .stat { font-family: var(--font-mono); font-size: .8rem; color: var(--tint); font-weight: 500 }
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s }
+  .card:hover { transform: translateY(-3px); border-color: var(--tint) }
+  .pill, .repo { transition: border-color .15s }
+}
+
+/* project page */
+.page { --tint: var(--moss); --tint-soft: var(--moss-soft); display: flex; flex-direction: column; gap: 32px }
+.page.end { --tint: var(--end); --tint-soft: var(--end-soft) } .page.amber { --tint: var(--amber); --tint-soft: var(--amber-soft) }
+.back { font-family: var(--font-mono); font-size: .85rem; text-decoration: none; width: max-content }
+.phead { display: flex; flex-direction: column; gap: 12px }
+.phead h2 { font-size: clamp(2rem, 5.5vw, 3rem); font-weight: 800; letter-spacing: -.02em }
+.phead .lead { font-size: 1.1rem; color: var(--muted) }
+.phead .links { display: flex; flex-wrap: wrap; gap: 8px }
+.hero-cover { border-radius: 18px; overflow: hidden; background: var(--tint-soft); aspect-ratio: 16 / 7; max-width: 100%; border: 1px solid var(--line) }
+.hero-cover svg { width: 100%; height: 100%; display: block }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px }
+.stats div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px }
+.stats b { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; color: var(--tint); font-variant-numeric: tabular-nums; line-height: 1.1 }
+.stats span { font-size: .82rem; color: var(--muted) }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 32px; align-items: start }
+@media (max-width: 760px) { .cols { grid-template-columns: 1fr } }
+.prose { display: flex; flex-direction: column; gap: 22px; min-width: 0 }
+.prose h3 { font-size: 1.3rem; font-weight: 700 }
+.prose ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 10px; max-width: 65ch }
+.prose section { display: flex; flex-direction: column; gap: 10px }
+.side { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0 }
+.side dl { margin: 0; display: flex; flex-direction: column; gap: 14px }
+.side dt { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.side dd { margin: 4px 0 0; font-size: .92rem }
+.side .tags { display: flex; flex-wrap: wrap; gap: 6px }
+.side .tag { background: var(--tint-soft) }
+.fig { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; overflow-x: auto; margin: 0 }
+.fig svg.diag { display: block; width: 100%; min-width: 520px; height: auto }
+.fig figcaption { margin-top: 10px; font-size: .84rem; color: var(--muted) }
+.todo { border: 1.5px dashed var(--line); border-radius: 14px; aspect-ratio: 16 / 6; max-width: 100%; display: grid; place-items: center; font-family: var(--font-mono); font-size: .82rem; color: var(--muted); background: var(--tint-soft) }
+svg.diag text { font-family: var(--font-mono); font-size: 12px; fill: var(--ink) }
+svg.diag .box { fill: var(--bg); stroke: var(--line); stroke-width: 1.2 }
+svg.diag .hl { fill: var(--tint-soft); stroke: var(--tint); stroke-width: 1.4 }
+svg.diag .edge { stroke: var(--muted); stroke-width: 1.2; fill: none }
+svg.diag .sub { fill: var(--muted); font-size: 10.5px }
+.head { fill: var(--muted) }
+.repo-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px }
+.repo { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); min-width: 0 }
+.repo b { font-family: var(--font-mono); font-weight: 500; color: var(--tint) }
+.repo span { font-size: .88rem; color: var(--muted) }
+.repo:hover { border-color: var(--tint) }
+
+footer { border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .9rem }
+</style>
+</head><body>
+
+<!-- Illustrated covers, reused on cards and project headers -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker>
+    <symbol id="cover-end" viewBox="0 0 320 200">
+      <rect x="36" y="22" width="248" height="164" rx="10" fill="var(--surface)" stroke="var(--end)" stroke-opacity=".35"/>
+      <rect x="36" y="22" width="248" height="22" rx="10" fill="var(--end)" fill-opacity=".14"/>
+      <circle cx="50" cy="33" r="3.5" fill="var(--end)" fill-opacity=".5"/><circle cx="62" cy="33" r="3.5" fill="var(--end)" fill-opacity=".35"/><circle cx="74" cy="33" r="3.5" fill="var(--end)" fill-opacity=".2"/>
+      <rect x="50" y="56" width="220" height="36" rx="6" fill="var(--end)" fill-opacity=".85"/>
+      <rect x="62" y="68" width="90" height="7" rx="3.5" fill="var(--surface)" fill-opacity=".9"/><rect x="62" y="80" width="56" height="5" rx="2.5" fill="var(--surface)" fill-opacity=".6"/>
+      <rect x="50" y="100" width="104" height="72" rx="6" fill="var(--end)" fill-opacity=".18"/>
+      <rect x="62" y="112" width="10" height="10" rx="2" fill="var(--end)"/><rect x="76" y="114" width="54" height="6" rx="3" fill="var(--end)" fill-opacity=".45"/>
+      <rect x="62" y="130" width="10" height="10" rx="2" fill="var(--end)" fill-opacity=".7"/><rect x="76" y="132" width="44" height="6" rx="3" fill="var(--end)" fill-opacity=".35"/>
+      <rect x="62" y="148" width="10" height="10" rx="2" fill="var(--end)" fill-opacity=".5"/><rect x="76" y="150" width="60" height="6" rx="3" fill="var(--end)" fill-opacity=".3"/>
+      <rect x="162" y="100" width="108" height="34" rx="6" fill="var(--end)" fill-opacity=".28"/>
+      <rect x="162" y="138" width="52" height="34" rx="6" fill="var(--end)" fill-opacity=".14"/><rect x="218" y="138" width="52" height="34" rx="6" fill="var(--end)" fill-opacity=".22"/>
+      <rect x="214" y="120" width="70" height="44" rx="6" fill="var(--surface)" stroke="var(--end)" stroke-width="1.5" stroke-dasharray="4 3" transform="rotate(-4 249 142)"/>
+      <path d="M262 150 l10 22 l3 -9 l9 -2 z" fill="var(--ink)"/>
+    </symbol>
+    <symbol id="cover-gardens" viewBox="0 0 320 200">
+      <g fill="var(--moss)">
+        <rect x="40" y="132" width="48" height="48" rx="4" fill-opacity=".9"/><rect x="92" y="132" width="48" height="48" rx="4" fill-opacity=".75"/>
+        <rect x="144" y="132" width="48" height="48" rx="4" fill-opacity=".9"/><rect x="196" y="132" width="48" height="48" rx="4" fill-opacity=".75"/>
+        <rect x="248" y="132" width="32" height="48" rx="4" fill-opacity=".9"/>
+        <rect x="144" y="80" width="48" height="48" rx="4" fill-opacity=".35"/>
+      </g>
+      <g fill="var(--amber)" fill-opacity=".9"><rect x="58" y="112" width="12" height="20" rx="2"/><rect x="214" y="104" width="12" height="28" rx="2"/></g>
+      <g fill="var(--moss)">
+        <rect x="52" y="104" width="10" height="10" rx="5"/><rect x="66" y="98" width="10" height="10" rx="5"/>
+        <rect x="108" y="116" width="6" height="16" rx="2"/><rect x="100" y="108" width="10" height="10" rx="5"/><rect x="112" y="104" width="10" height="10" rx="5"/>
+        <rect x="208" y="94" width="10" height="10" rx="5"/><rect x="222" y="88" width="10" height="10" rx="5"/>
+        <rect x="165" y="62" width="6" height="18" rx="2"/><rect x="156" y="52" width="12" height="12" rx="6"/><rect x="168" y="46" width="12" height="12" rx="6"/>
+      </g>
+      <g fill="var(--end)" fill-opacity=".55"><rect x="250" y="40" width="8" height="8" rx="2"/><rect x="264" y="56" width="6" height="6" rx="2"/><rect x="236" y="62" width="5" height="5" rx="1.5"/></g>
+    </symbol>
+    <symbol id="cover-portals" viewBox="0 0 320 200">
+      <rect x="0" y="150" width="320" height="50" fill="var(--amber)" fill-opacity=".18"/>
+      <rect x="104" y="28" width="112" height="150" rx="4" fill="var(--ink)" fill-opacity=".85"/>
+      <rect x="118" y="42" width="84" height="122" rx="2" fill="var(--end-soft)"/>
+      <rect x="118" y="120" width="84" height="44" fill="var(--moss)" fill-opacity=".55"/>
+      <circle cx="176" cy="70" r="10" fill="var(--amber)" fill-opacity=".85"/>
+      <rect x="128" y="100" width="18" height="20" rx="2" fill="var(--moss)" fill-opacity=".8"/><rect x="132" y="88" width="10" height="14" rx="5" fill="var(--moss)"/>
+      <g fill="var(--amber)"><rect x="40" y="132" width="10" height="18" rx="2" fill-opacity=".7"/><rect x="262" y="124" width="12" height="26" rx="2" fill-opacity=".7"/></g>
+      <path d="M58 150 q14 -24 30 -10" stroke="var(--amber)" stroke-width="3" fill="none" stroke-linecap="round" stroke-opacity=".6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home" aria-label="Ryan Exner, home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Ryan Exner</a>
+    <nav class="toplinks" aria-label="Elsewhere">
+      <a class="pill" href="https://github.com/BrightSteel">GitHub</a>
+      <a class="pill" href="#TODO-linkedin">LinkedIn</a>
+    </nav>
+  </header>
+
+  <main class="home" data-view="home">
+    <section class="intro">
+      <h1>I build products people <em>actually use</em>, and run them myself.</h1>
+      <p>I'm a software engineer working in Java, Spring Boot, React and TypeScript. Outside work I built and run a Minecraft community with 736 registered players, the plugins behind it, and the website builder that hosts its site.</p>
+    </section>
+    <section class="grid" aria-label="Projects">
+      <a class="card end" href="#enderbeam">
+        <span class="cover"><svg viewBox="0 0 320 200" role="img" aria-label="Illustration of a drag-and-drop page builder"><use href="#cover-end"/></svg></span>
+        <span class="body">
+          <span class="stat">Launched 2026</span>
+          <h3>EnderBeam</h3>
+          <p>A multi-tenant website builder for Minecraft servers, with real-time collaborative editing.</p>
+          <span class="meta"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Spring Boot</span><span class="tag">Postgres</span></span>
+        </span>
+      </a>
+      <a class="card" href="#gardens">
+        <span class="cover"><svg viewBox="0 0 320 200" role="img" aria-label="Illustration of blocks with crops growing"><use href="#cover-gardens"/></svg></span>
+        <span class="body">
+          <span class="stat">736 players · 4 plugins</span>
+          <h3>GardensMC</h3>
+          <p>A Minecraft community and the suite of plugins I wrote to run it: economy, quests, enchanting, furniture, farming.</p>
+          <span class="meta"><span class="tag">Java</span><span class="tag">Paper</span><span class="tag">MySQL</span><span class="tag">GitHub Actions</span></span>
+        </span>
+      </a>
+      <a class="card amber" href="#portals">
+        <span class="cover"><svg viewBox="0 0 320 200" role="img" aria-label="Illustration of a portal showing another world"><use href="#cover-portals"/></svg></span>
+        <span class="body">
+          <span class="stat">3 Minecraft versions</span>
+          <h3>SeamlessPortals</h3>
+          <p>See-through portals you walk straight through, with live rendering of the other side.</p>
+          <span class="meta"><span class="tag">Java</span><span class="tag">Fabric</span><span class="tag">GLSL</span></span>
+        </span>
+      </a>
+    </section>
+  </main>
+
+  <article data-view="enderbeam" class="page end" hidden>
+    <a class="back" href="#home">← All projects</a>
+    <div class="phead">
+      <span class="label">Founder and sole engineer · Launched 2026</span>
+      <h2>EnderBeam</h2>
+      <p class="lead">Hosted, branded websites for Minecraft servers. Owners install a plugin, drag modules onto a page, and get a live site that ties into their server, their Discord and their store.</p>
+      <div class="links"><a class="pill" href="https://enderbeam.com">Visit enderbeam.com</a></div>
+    </div>
+    <div class="hero-cover"><svg viewBox="0 0 320 140" role="img" aria-label="Illustration of the EnderBeam builder"><use href="#cover-end" x="40" y="-30" width="240" height="200"/></svg></div>
+    <div class="stats">
+      <div><b>74</b><span>page modules</span></div>
+      <div><b>48</b><span>themes</span></div>
+      <div><b>321</b><span>tests in CI</span></div>
+      <div><b>1</b><span>backend for every site</span></div>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <section>
+          <h3>How it works</h3>
+          <figure class="fig">
+            <svg class="diag" viewBox="0 0 640 230" role="img" aria-labelledby="eb-t">
+              <title id="eb-t">The creator app and tenant runtime share one module registry and site schema; the Spring Boot backend stores schemas in Postgres.</title>
+              <rect class="box" x="10" y="20" width="170" height="54" rx="8"/><text x="22" y="43">Creator app</text><text class="sub" x="22" y="61">drag-and-drop editor</text>
+              <rect class="box" x="10" y="150" width="170" height="54" rx="8"/><text x="22" y="173">Tenant runtime</text><text class="sub" x="22" y="191">one build, every site</text>
+              <rect class="hl" x="230" y="85" width="180" height="54" rx="8"/><text x="242" y="108">Module registry</text><text class="sub" x="242" y="126">+ versioned site schema</text>
+              <rect class="box" x="460" y="20" width="170" height="54" rx="8"/><text x="472" y="43">Spring Boot backend</text><text class="sub" x="472" y="61">REST + WebSockets</text>
+              <rect class="box" x="460" y="150" width="170" height="54" rx="8"/><text x="472" y="173">PostgreSQL</text><text class="sub" x="472" y="191">tenants are rows</text>
+              <path class="edge" marker-end="url(#arr)" d="M180 52 L228 100"/>
+              <path class="edge" marker-end="url(#arr)" d="M180 176 L228 126"/>
+              <path class="edge" marker-end="url(#arr)" d="M180 40 L458 40"/><text class="sub" x="262" y="32">edits · live collaboration</text>
+              <path class="edge" marker-end="url(#arr)" d="M545 74 L545 148"/>
+              <path class="edge" marker-end="url(#arr)" d="M458 186 L182 186"/><text class="sub" x="262" y="218">schema resolved by host</text>
+            </svg>
+            <figcaption>A module added to the registry once shows up in the editor and on every live site.</figcaption>
+          </figure>
+        </section>
+        <section>
+          <h3>Hard problems</h3>
+          <ul>
+            <li><strong>Multi-tenant hosting that stays cheap.</strong> One static runtime build and one backend serve every customer site. Each site's schema is resolved by hostname, so a new tenant is a database row, not a new server.</li>
+            <li><strong>Keeping three apps in sync.</strong> A versioned JSON site schema with Zod validation is the contract between the editor, the runtime and the backend. Old schemas migrate on read, and stored rows migrate through Flyway.</li>
+            <li><strong>Several people editing at once.</strong> Live collaboration runs over WebSockets, with drafts, publishing, and undo/redo.</li>
+            <li><strong>Deploying without breaking live sites.</strong> CI runs type checks, tests and a migration rehearsal against the production schema, then deploys blue/green.</li>
+          </ul>
+        </section>
+        <div class="todo" role="img" aria-label="Screenshot placeholder">TODO: screenshot of the builder</div>
+      </div>
+      <aside class="side">
+        <dl>
+          <div><dt>Role</dt><dd>Everything: product, design, frontend, backend, ops</dd></div>
+          <div><dt>Integrations</dt><dd>Stripe, Discord OAuth, Tebex, Cloudflare custom domains, R2 uploads</dd></div>
+          <div><dt>Stack</dt><dd class="tags"><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Spring Boot 3</span><span class="tag">Java 21</span><span class="tag">PostgreSQL</span><span class="tag">WebSockets</span><span class="tag">Caddy</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </article>
+
+  <article data-view="gardens" class="page" hidden>
+    <a class="back" href="#home">← All projects</a>
+    <div class="phead">
+      <span class="label">Founder and engineer · Since 2022</span>
+      <h2>GardensMC</h2>
+      <p class="lead">A survival Minecraft community I run. Most of its gameplay comes from a suite of plugins I wrote, which share APIs and build on each other the way a small set of services would.</p>
+      <div class="links"><a class="pill" href="https://gardensmc.com">Visit gardensmc.com</a></div>
+    </div>
+    <div class="hero-cover"><svg viewBox="0 0 320 140" role="img" aria-label="Illustration of garden blocks"><use href="#cover-gardens" x="40" y="-40" width="240" height="200"/></svg></div>
+    <div class="stats">
+      <div><b>736</b><span>registered players</span></div>
+      <div><b>300+</b><span>monthly active</span></div>
+      <div><b>4</b><span>plugins in the suite</span></div>
+      <div><b>420+</b><span>commits</span></div>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <section>
+          <h3>How the plugins fit together</h3>
+          <figure class="fig">
+            <svg class="diag" viewBox="0 0 640 200" role="img" aria-labelledby="gs-t">
+              <title id="gs-t">GardensPlayers depends on Enchants, Crops and Furniture; Enchants and Crops also build on Furniture.</title>
+              <rect class="hl" x="10" y="73" width="170" height="54" rx="8"/><text x="22" y="96">GardensPlayers</text><text class="sub" x="22" y="114">economy · quests · shops</text>
+              <rect class="box" x="240" y="10" width="170" height="54" rx="8"/><text x="252" y="33">GardensEnchants</text><text class="sub" x="252" y="51">custom enchanting</text>
+              <rect class="box" x="240" y="136" width="170" height="54" rx="8"/><text x="252" y="159">GardensCrops</text><text class="sub" x="252" y="177">farming</text>
+              <rect class="box" x="460" y="73" width="170" height="54" rx="8"/><text x="472" y="96">GardensFurniture</text><text class="sub" x="472" y="114">custom blocks framework</text>
+              <path class="edge" marker-end="url(#arr)" d="M180 90 L238 44"/>
+              <path class="edge" marker-end="url(#arr)" d="M180 110 L238 156"/>
+              <path class="edge" marker-end="url(#arr)" d="M180 100 L458 100"/>
+              <path class="edge" marker-end="url(#arr)" d="M410 44 L470 72"/>
+              <path class="edge" marker-end="url(#arr)" d="M410 156 L470 128"/>
+            </svg>
+            <figcaption>Arrows point to the plugin each one builds on.</figcaption>
+          </figure>
+        </section>
+        <section>
+          <h3>Highlights</h3>
+          <ul>
+            <li><strong>Resource worlds that reset themselves.</strong> GardensPlayers generates fresh resource worlds every month and archives the old ones to S3-compatible storage with multipart uploads.</li>
+            <li><strong>Fast player data.</strong> Player data lives in MySQL through HikariCP, with a Caffeine cache in front for hot reads.</li>
+            <li><strong>Bedrock players see everything.</strong> I maintain a fork of GeyserMC, the Bedrock-to-Java proxy, so custom blocks and furniture render for Bedrock players too. Fork changes sit in a thin shim so upstream releases merge cleanly.</li>
+            <li><strong>Tested and automated.</strong> Unit tests and GitHub Actions CI run across the suite, and the Geyser fork deploys itself to the server.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>The code</h3>
+          <div class="repo-list">
+            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>Core platform: economy, quests, shops, warps, resource worlds</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/gardens-enchants"><b>GardensEnchants</b><span>Custom enchantments, rarities, runes, enchanting table</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/gardens-furniture"><b>GardensFurniture</b><span>Persistent interactive furniture and custom blocks</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>Planters, sprinklers, watering cans, harvest golems</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>GeyserMC fork with custom block support for Bedrock</span></a>
+          </div>
+        </section>
+      </div>
+      <aside class="side">
+        <dl>
+          <div><dt>Role</dt><dd>Founder; wrote and runs the plugins and infrastructure</dd></div>
+          <div><dt>Stack</dt><dd class="tags"><span class="tag">Java 25</span><span class="tag">Paper API</span><span class="tag">Gradle</span><span class="tag">MySQL</span><span class="tag">HikariCP</span><span class="tag">Caffeine</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">Cloudflare</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </article>
+
+  <article data-view="portals" class="page amber" hidden>
+    <a class="back" href="#home">← All projects</a>
+    <div class="phead">
+      <span class="label">Solo project · 2026</span>
+      <h2>SeamlessPortals</h2>
+      <p class="lead">See-through portals for Minecraft. Nether portals, End portals and custom portals show the world on the other side live, and you cross by just walking through: no loading screen. Riding, flying and leashed animals cross too.</p>
+    </div>
+    <div class="hero-cover"><svg viewBox="0 0 320 140" role="img" aria-label="Illustration of a portal"><use href="#cover-portals" x="40" y="-35" width="240" height="200"/></svg></div>
+    <div class="stats">
+      <div><b>3</b><span>Minecraft versions</span></div>
+      <div><b>2</b><span>platforms, one codebase</span></div>
+      <div><b>API</b><span>for other mods and plugins</span></div>
+    </div>
+    <div class="cols">
+      <div class="prose">
+        <section>
+          <h3>Highlights</h3>
+          <ul>
+            <li><strong>Live rendering of the far side</strong> with custom GLSL shaders, on the client.</li>
+            <li><strong>One codebase, two platforms.</strong> A Fabric mod (client and server) and a Paper plugin share common code. Players without the mod still see and use portals as normal.</li>
+            <li><strong>Custom portals</strong> of any size and shape, linked within or across worlds, through an admin command and a wand.</li>
+          </ul>
+        </section>
+        <div class="todo" role="img" aria-label="GIF placeholder">TODO: GIF of walking through a portal</div>
+      </div>
+      <aside class="side">
+        <dl>
+          <div><dt>Role</dt><dd>Solo: design and implementation</dd></div>
+          <div><dt>Stack</dt><dd class="tags"><span class="tag">Java</span><span class="tag">Fabric</span><span class="tag">Paper</span><span class="tag">GLSL</span><span class="tag">Gradle</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </article>
+
+  <footer>
+    <span>Ryan Exner</span>
+    <span><a href="https://github.com/BrightSteel">GitHub</a> · <a href="#TODO-linkedin">LinkedIn</a></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var views = document.querySelectorAll('[data-view]');
+  function show() {
+    var name = (location.hash || '#home').slice(1);
+    var match = Array.prototype.some.call(views, function (v) { return v.dataset.view === name; });
+    if (!match) name = 'home';
+    views.forEach(function (v) { v.hidden = v.dataset.view !== name; });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body></html>
