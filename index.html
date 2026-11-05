@@ -319,7 +319,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
             <div class="plugin">
               <div class="plugin-head"><b>GardensCrops</b><a href="https://github.com/BrightSteel/GardensCrops">GitHub ↗</a></div>
               <p>Farming with planters, sprinklers, and harvest golems.</p>
-              <ul><li>Growth runs from a queue that handles at most 100 planters every half second, so big farms don’t cause lag spikes.</li><li>Nearby chunks load asynchronously before planters are queued. Planters in unloaded chunks wait instead of forcing a load.</li><li>Sprinklers are tracked as their chunks load, so the two-second sprinkler tick only visits loaded ones instead of scanning every world.</li><li>Offline growth is simulated. When a chunk loads again, crops and sprinklers catch up from the days since they last ran, so unloaded farms never need to tick.</li></ul>
+              <ul><li>Growth runs from a queue that handles at most 100 planters every half second, so big farms don’t cause lag spikes.</li><li>Nearby chunks load asynchronously before planters are queued. Planters in unloaded chunks wait instead of forcing a load.</li><li>Offline growth is simulated. When a chunk loads again, crops and sprinklers catch up from the days since they last ran, so unloaded farms never need to tick.</li></ul>
             </div>
           </div>
           <p>Bedrock players connect through <a href="https://github.com/BrightSteel/GeyserGardens">GeyserGardens</a>, my fork of Geyser that adds custom blocks in a thin shim so upstream releases merge cleanly. Across the suite: 36 test classes, CI on every push, and automatic deploys.</p>
