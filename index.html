@@ -260,30 +260,32 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <h3>How the plugins fit together</h3>
           <figure class="canvas">
             <svg class="flow" viewBox="0 0 740 392" role="img" aria-labelledby="gs-flow">
-              <title id="gs-flow">Java players join the Paper server directly, and Bedrock players join through the GeyserGardens proxy. On the server, the plugins stack in layers: GardensFurniture at the base, GardensEnchants and GardensCrops on top of it, and GardensPlayers on top of everything. GardensPlayers stores player data in MySQL and archives resource worlds to S3.</title>
+              <title id="gs-flow">Java players join the Paper server directly, and Bedrock players join through the GeyserGardens proxy. On the server, GardensFurniture is the foundation that feeds into GardensPlayers, GardensEnchants, and GardensCrops. GardensPlayers stores player data in MySQL and archives resource worlds to S3.</title>
               <defs><pattern id="dots2" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" class="dot"/></pattern></defs>
               <rect width="740" height="392" fill="url(#dots2)"/>
               <rect class="group" x="12" y="118" width="548" height="256" rx="16"/>
               <text class="gl" x="28" y="138">Paper server</text>
-              <text class="gl" x="532" y="138" text-anchor="end">Each layer builds on the one below</text>
               <path class="wire" d="M190 50 L 215 50"/>
               <path class="wire" d="M300 80 L 300 118"/>
               <path class="wire" d="M475 80 L 475 118"/>
+              <path class="wire" d="M210 252 C 235 252, 235 180, 260 180"/>
+              <path class="wire" d="M210 252 L 260 252"/>
+              <path class="wire" d="M210 252 C 235 252, 235 324, 260 324"/>
               <path class="wire" d="M532 172 L 585 172"/>
               <path class="wire" d="M532 188 C 560 188, 557 262, 585 262"/>
-              <circle class="end" cx="215" cy="50" r="3.5"/><circle class="end" cx="300" cy="118" r="3.5"/><circle class="end" cx="475" cy="118" r="3.5"/><circle class="end" cx="585" cy="172" r="3.5"/><circle class="end" cx="585" cy="262" r="3.5"/>
+              <circle class="end" cx="215" cy="50" r="3.5"/><circle class="end" cx="300" cy="118" r="3.5"/><circle class="end" cx="475" cy="118" r="3.5"/><circle class="end" cx="260" cy="180" r="3.5"/><circle class="end" cx="260" cy="252" r="3.5"/><circle class="end" cx="260" cy="324" r="3.5"/><circle class="end" cx="585" cy="172" r="3.5"/><circle class="end" cx="585" cy="262" r="3.5"/>
               <g transform="translate(20 20)"><rect class="node" width="170" height="60" rx="12"/><rect class="ic ext" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Bedrock players</text><text class="s" x="50" y="44">Phones and consoles</text></g>
               <g transform="translate(215 20)"><rect class="node" width="170" height="60" rx="12"/><rect class="ic proxy" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GeyserGardens</text><text class="s" x="50" y="44">Translation proxy</text></g>
               <g transform="translate(390 20)"><rect class="node" width="170" height="60" rx="12"/><rect class="ic ext" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Java players</text><text class="s" x="50" y="44">PC</text></g>
-              <g transform="translate(40 150)"><rect class="hl" width="492" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensPlayers</text><text class="s" x="50" y="44">Economy, quests, and shops; ties the suite together</text></g>
-              <g transform="translate(40 222)"><rect class="node" width="241" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensEnchants</text><text class="s" x="50" y="44">Custom enchanting</text></g>
-              <g transform="translate(291 222)"><rect class="node" width="241" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensCrops</text><text class="s" x="50" y="44">Farming</text></g>
-              <g transform="translate(40 294)"><rect class="node" width="492" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensFurniture</text><text class="s" x="50" y="44">Custom blocks framework the others build on</text></g>
+              <g transform="translate(40 150)"><rect class="node" width="170" height="204" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="14" y="66">GardensFurniture</text><text class="s" x="14" y="84">Custom blocks framework</text><text class="s" x="14" y="100">the other plugins use</text></g>
+              <g transform="translate(260 150)"><rect class="hl" width="272" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensPlayers</text><text class="s" x="50" y="44">Economy, quests, and shops</text></g>
+              <g transform="translate(260 222)"><rect class="node" width="272" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensEnchants</text><text class="s" x="50" y="44">Custom enchanting</text></g>
+              <g transform="translate(260 294)"><rect class="node" width="272" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">GardensCrops</text><text class="s" x="50" y="44">Farming</text></g>
               <g transform="translate(585 142)"><rect class="node" width="140" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">MySQL</text><text class="s" x="50" y="44">Player data</text></g>
               <g transform="translate(585 232)"><rect class="node" width="140" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">S3</text><text class="s" x="50" y="44">Archived worlds</text></g>
             </svg>
           </figure>
-          <p>GardensFurniture is the foundation: a framework for custom blocks that the other plugins build on. GardensEnchants and GardensCrops sit on top of it, and GardensPlayers ties everything together into the player-facing economy, quests, and shops. Each plugin exposes a small API the others call, so they can ship independently.</p>
+          <p>GardensFurniture is the foundation: a custom blocks framework that all three other plugins build on. GardensEnchants and GardensCrops add enchanting and farming on top of it, and GardensPlayers ties everything together into the player-facing economy, quests, and shops. Each plugin exposes a small API the others call, so they can ship independently.</p>
         </section>
         <section>
           <h3>Highlights</h3>
@@ -299,7 +301,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <div class="repo-list">
             <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>Core platform: economy, quests, shops, warps, resource worlds</span><span class="dep">Builds on Enchants, Crops, and Furniture</span></a>
             <a class="repo" href="https://github.com/BrightSteel/GardensEnchants"><b>GardensEnchants</b><span>Custom enchantments, rarities, runes, enchanting table</span><span class="dep">Builds on Furniture</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>Persistent interactive furniture and custom blocks</span><span class="dep">The foundation</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>Persistent interactive furniture and custom blocks</span><span class="dep">Used by Players, Enchants, and Crops</span></a>
             <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>Planters, sprinklers, watering cans, harvest golems</span><span class="dep">Builds on Furniture</span></a>
             <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>GeyserMC fork with custom block support for Bedrock</span></a>
           </div>
