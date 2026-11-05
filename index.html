@@ -247,7 +247,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <h3>Hard problems</h3>
           <ul>
             <li><strong>Deep zoom without huge storage.</strong> Detailed web maps usually save a rendered image for every zoom level, which takes a lot of disk. EnderMap saves block data instead, about 10 KB per 128×128-block tile, and the GPU draws close-ups from it. Images are used only for zoomed-out views.</li><li><strong>Hosted on EnderBeam.</strong> Servers can show the map on their EnderBeam site without opening a port. EnderBeam caches the files over one outbound WebSocket, so each file leaves the server once, and the map stays up while the server is down.</li>
-            <li><strong>Drawing without sorting.</strong> The GPU’s depth test replaces a painter’s sort, so players hide behind trees, walls, and roofs with a faint outline.</li>
+            <li><strong>Drawing without sorting.</strong> The GPU works out what’s in front, so players hide behind trees, walls, and roofs with a faint outline.</li>
             <li><strong>Edits show up fast.</strong> Blocks placed or broken appear for everyone within a few hundred milliseconds.</li>
             <li><strong>Looks like the game.</strong> Textures, animated water, mob models, and the day-night sky all come from the game’s own files and the server’s resource pack.</li>
           </ul>
