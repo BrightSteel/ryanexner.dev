@@ -206,8 +206,8 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
         <span class="body">
           <span class="eyebrow">Live on GardensMC</span>
           <h3>EnderMap</h3>
-          <p>A live web map of a Minecraft server, drawn top-down like Stardew Valley, with players and mobs moving in real time.</p>
-          <span class="chips"><span class="chip">Java</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">SSE</span></span>
+          <p>A live web map of a Minecraft server, drawn top-down like Stardew Valley. The GPU draws close-ups, so deep zoom needs little storage.</p>
+          <span class="chips"><span class="chip">Java</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">WebSockets</span></span>
         </span>
       </a>
     </section>
@@ -234,19 +234,19 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
               <path class="wire" d="M180 60 L 200 60"/><path class="wire" d="M360 60 L 380 60"/><path class="wire" d="M540 60 L 560 60"/>
               <path class="wire" d="M100 90 V 150 Q 100 160, 110 160 H 450 Q 460 160, 460 150 V 90"/>
               <circle class="end" cx="200" cy="60" r="3.5"/><circle class="end" cx="380" cy="60" r="3.5"/><circle class="end" cx="560" cy="60" r="3.5"/><circle class="end" cx="460" cy="90" r="3.5"/>
-              <g transform="translate(20 30)"><rect class="hl" width="160" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Paper plugin</text><text class="s" x="50" y="44">Reads visible blocks</text></g>
-              <g transform="translate(200 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Tile store</text><text class="s" x="50" y="44">About 10 KB a tile</text></g>
-              <g transform="translate(380 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic be" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Web server</text><text class="s" x="50" y="44">JDK HTTP, no extras</text></g>
-              <g transform="translate(560 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic fe" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Browser</text><text class="s" x="50" y="44">WebGL 2 renderer</text></g>
+              <g transform="translate(20 30)"><rect class="hl" width="160" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Paper plugin</text><text class="s" x="50" y="44">Reads chunks</text></g>
+              <g transform="translate(200 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Tile store</text><text class="s" x="50" y="44">Blocks, not images</text></g>
+              <g transform="translate(380 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic be" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Web server</text><text class="s" x="50" y="44">Self or EnderBeam</text></g>
+              <g transform="translate(560 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic fe" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Browser</text><text class="s" x="50" y="44">GPU close-ups</text></g>
               <g transform="translate(195 148)"><rect class="pillbg" width="170" height="24" rx="12"/><text class="pl" x="85" y="16" text-anchor="middle">Live players and mobs (SSE)</text></g>
             </svg>
           </figure>
-          <p>For each chunk, the plugin stores only what the map camera can see. In the browser, web workers turn each tile into a list of blocks, and the GPU draws them as instanced quads. Players and mobs stream in over Server-Sent Events.</p>
+          <p>The plugin stores only the blocks the map camera can see, plus small images for zoomed-out views. Up close, the browser’s GPU draws each tile from its block data. The map is served by the plugin itself or through the server’s EnderBeam site, and players and mobs stream in over Server-Sent Events.</p>
         </section>
         <section>
           <h3>Hard problems</h3>
           <ul>
-            <li><strong>Small, durable tiles.</strong> Each 128×128-block tile is about 10 KB. Block ids never change, so tiles survive restarts and resource-pack changes.</li>
+            <li><strong>Deep zoom without huge storage.</strong> Detailed web maps usually save a rendered image for every zoom level, which takes a lot of disk. EnderMap saves block data instead, about 10 KB per 128×128-block tile, and the GPU draws close-ups from it. Images are used only for zoomed-out views.</li><li><strong>Hosted on EnderBeam.</strong> Servers can show the map on their EnderBeam site without opening a port. EnderBeam caches the files over one outbound WebSocket, so each file leaves the server once, and the map stays up while the server is down.</li>
             <li><strong>Drawing without sorting.</strong> The GPU’s depth test replaces a painter’s sort, so players hide behind trees, walls, and roofs with a faint outline.</li>
             <li><strong>Edits show up fast.</strong> Blocks placed or broken appear for everyone within a few hundred milliseconds.</li>
             <li><strong>Looks like the game.</strong> Textures, animated water, mob models, and the day-night sky all come from the game’s own files and the server’s resource pack.</li>
@@ -257,7 +257,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
         <dl>
           <div><dt>Role</dt><dd>Solo: design and implementation</dd></div>
           <div><dt>At a glance</dt><dd>Live on GardensMC, players at 10 updates a second, no web framework</dd></div>
-          <div><dt>Stack</dt><dd class="chips"><span class="chip">Java</span><span class="chip">Paper</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">Web Workers</span><span class="chip">SSE</span></dd></div>
+          <div><dt>Stack</dt><dd class="chips"><span class="chip">Java</span><span class="chip">Paper</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">Web Workers</span><span class="chip">SSE</span><span class="chip">WebSockets</span></dd></div>
         </dl>
       </aside>
     </div>
