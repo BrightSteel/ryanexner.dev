@@ -290,7 +290,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
         <section>
           <h3>Engineering highlights</h3>
           <ul>
-            <li><strong>Storage without a database.</strong> Furniture state lives in each chunk’s own data, behind a cache that loads with the chunk. When new worlds generate, furniture is placed in bulk, and each placement re-saved all of the chunk’s furniture data. An End chunk with about 140 pieces meant about 140² saves. I made placement buffer per chunk and save once.</li>
+            <li><strong>Storage without a database.</strong> Furniture lives in each chunk’s own data, cached as chunks load. Batching world-gen writes per chunk cut about 140² saves down to one.</li>
             <li><strong>Monthly world resets with backpressure.</strong> Replacement worlds are generated ahead of time, one at a time. Generation pauses when memory, loaded chunks, or pending furniture get too high, and resumes when they drop. A reset swaps in a ready world, archives the old one to S3, and warns staff when fewer than three are left.</li>
             <li><strong>Keeping the main thread free.</strong> Minecraft runs game logic on a single thread, so every MySQL call goes through async Caffeine caches. Expensive reads like the quest leaderboard are cached for minutes instead of queried on every menu open.</li>
             <li><strong>Bedrock support.</strong> Key menus switch to native Bedrock forms for Bedrock players. A GeyserMC fork renders custom blocks for them, with changes kept in a thin shim so upstream releases merge cleanly.</li>
