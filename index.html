@@ -108,13 +108,6 @@ svg.flow .wire { fill: none; stroke: var(--muted); stroke-width: 1.5; opacity: .
 svg.flow .end { fill: var(--muted) }
 svg.flow .pillbg { fill: var(--surface); stroke: var(--line); stroke-width: 1 }
 svg.flow .pl { font-size: 11px; font-weight: 500; fill: var(--muted) }
-svg.flow .sp-base { fill: var(--surface) } svg.flow .sp-ground { fill: var(--raised); stroke: var(--line) } svg.flow .sp-who { fill: var(--muted) }
-svg.flow .sp-sight { fill: none; stroke: var(--glow); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: .8 }
-svg.flow .sp-frame { fill: var(--end) } svg.flow .sp-ghost { fill: none; stroke: var(--end); stroke-width: 1.2; stroke-dasharray: 3 3 }
-svg.flow .sp-sky { fill: var(--glow); opacity: .14 } svg.flow .sp-far { fill: var(--glow); opacity: .5 } svg.flow .sp-mob { fill: var(--ink); opacity: .75 }
-svg.flow .sp-edge { fill: none; stroke: var(--end); stroke-width: 3; opacity: .5 }
-svg.flow .sp-chunks .on { fill: var(--glow); opacity: .7 } svg.flow .sp-chunks .off { fill: none; stroke: var(--line) }
-
 .repo-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px }
 .repo { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--ink); background: var(--surface); min-width: 0 }
 .repo b { font-family: var(--mono); font-weight: 500; font-size: .9rem }
@@ -186,7 +179,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
       </a>
       <a class="card amber" href="#portals">
         <span class="arrow" aria-hidden="true">↗</span>
-        <span class="media"><img src="img/seamlessportals.jpg" alt="Illustration of a portal at night showing a daytime path on the other side, made from two GardensMC screenshots" loading="lazy"></span>
+        <span class="media"><img src="img/seamlessportals.jpg" alt="Looking through a SeamlessPortals portal" loading="lazy" onerror="this.remove()"><span class="soon">Screenshot coming soon</span></span>
         <span class="body">
           <span class="eyebrow">Mod · 3 Minecraft versions</span>
           <h3>SeamlessPortals</h3>
@@ -325,47 +318,30 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
       <h2>SeamlessPortals</h2>
       <p class="lead">See-through portals for Minecraft. You see the world on the other side live, and cross by walking through, with no loading screen.</p>
     </div>
-    <div class="media hero-media"><img src="img/seamlessportals.jpg" alt="Illustration of a portal at night showing a daytime path on the other side, made from two GardensMC screenshots" loading="lazy"></div>
+    <div class="media hero-media"><img src="img/seamlessportals.jpg" alt="Looking through a SeamlessPortals portal" loading="lazy" onerror="this.remove()"><span class="soon">Screenshot coming soon</span></div>
     <div class="cols">
       <div class="prose">
         <section>
           <h3>How it works</h3>
           <figure class="canvas">
-            <svg class="flow" viewBox="0 0 740 356" role="img" aria-labelledby="sp-flow">
-              <title id="sp-flow">On your side, a player looks into a portal and sees the world on the other side drawn inside it. On the other side, the server loads the chunks around the far portal, including any mobs in view, and streams them to the player's client.</title>
-              <defs>
-                <pattern id="dots3" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" class="dot"/></pattern>
-                <clipPath id="sp-win"><rect x="212" y="132" width="76" height="126"/></clipPath>
-                <clipPath id="sp-panel"><rect x="385" y="21" width="342" height="294" rx="15"/></clipPath>
-                <clipPath id="sp-cone"><polygon points="422,132 728,-23 728,378 422,258"/></clipPath>
-              </defs>
-              <rect width="740" height="356" fill="url(#dots3)"/>
-              <rect class="group" x="12" y="20" width="344" height="296" rx="16"/>
-              <text class="gl" x="28" y="40">Your side</text>
-              <rect class="group" x="384" y="20" width="344" height="296" rx="16"/>
-              <text class="gl" x="400" y="40">The other side</text>
-              <path class="sp-ground" d="M13 270 H 355 V 278 H 13 Z"/>
-              <rect class="sp-who" x="64" y="196" width="16" height="16" rx="2"/><rect class="sp-who" x="66" y="214" width="12" height="30" rx="2"/><rect class="sp-who" x="66" y="246" width="5" height="24"/><rect class="sp-who" x="73" y="246" width="5" height="24"/>
-              <path class="sp-sight" d="M76 203 L 212 132 M76 203 L 212 258"/>
-              <rect class="sp-frame" x="200" y="120" width="100" height="150"/>
-              <g clip-path="url(#sp-win)">
-                <rect class="sp-base" x="212" y="132" width="76" height="126"/><rect class="sp-sky" x="212" y="132" width="76" height="126"/>
-                <path class="sp-far" d="M212 236 H 232 V 226 H 250 V 216 H 288 V 258 H 212 Z"/>
-                <rect class="sp-mob" x="266" y="204" width="10" height="12" rx="1.5"/>
-              </g>
-              <rect class="sp-edge" x="212" y="132" width="76" height="126"/>
-              <g clip-path="url(#sp-panel)"><g clip-path="url(#sp-cone)"><rect class="sp-sky" x="422" y="21" width="305" height="249"/></g>
-              <path class="sp-sight" d="M422 132 L 727 -23 M422 258 L 450 270"/></g>
-              <path class="sp-ground" d="M385 270 H 520 V 252 H 572 V 238 H 640 V 256 H 727 V 278 H 385 Z"/>
-              <g clip-path="url(#sp-cone)"><path class="sp-far" d="M385 270 H 520 V 252 H 572 V 238 H 640 V 256 H 727 V 278 H 385 Z"/></g>
-              <rect class="sp-ghost" x="410" y="120" width="100" height="150"/><rect class="sp-ghost" x="422" y="132" width="76" height="138"/>
-              <rect class="sp-mob" x="604" y="214" width="16" height="24" rx="2"/>
-              <g class="sp-chunks"><rect class="on" x="394" y="280" width="22" height="10" rx="2"/><rect class="on" x="419" y="280" width="22" height="10" rx="2"/><rect class="on" x="444" y="280" width="22" height="10" rx="2"/><rect class="on" x="469" y="280" width="22" height="10" rx="2"/><rect class="on" x="494" y="280" width="22" height="10" rx="2"/><rect class="on" x="519" y="280" width="22" height="10" rx="2"/><rect class="off" x="544" y="280" width="22" height="10" rx="2"/><rect class="off" x="569" y="280" width="22" height="10" rx="2"/><rect class="off" x="594" y="280" width="22" height="10" rx="2"/><rect class="off" x="619" y="280" width="22" height="10" rx="2"/><rect class="off" x="644" y="280" width="22" height="10" rx="2"/><rect class="off" x="669" y="280" width="22" height="10" rx="2"/><rect class="off" x="694" y="280" width="22" height="10" rx="2"/></g>
-              <text class="s" x="400" y="306">Chunks around the far portal</text>
-              <text class="s" x="28" y="300">The mod draws the far side</text>
-              <path class="wire" d="M250 278 V 330 Q 250 338, 258 338 H 452 Q 460 338, 460 330 V 290"/>
-              <circle class="end" cx="250" cy="278" r="3.5"/><circle class="end" cx="460" cy="290" r="3.5"/>
-              <rect class="pillbg" x="294" y="326" width="124" height="24" rx="12"/><text class="pl" x="356" y="342" text-anchor="middle">Chunks and entities</text>
+            <svg class="flow" viewBox="0 0 740 304" role="img" aria-labelledby="sp-flow">
+              <title id="sp-flow">The Paper plugin and the Fabric mod's server side both run one shared core, which handles portals and travel and streams the far side of each portal. Players with the mod see through portals live and walk through. Players without it get vanilla portals.</title>
+              <defs><pattern id="dots3" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" class="dot"/></pattern></defs>
+              <rect width="740" height="304" fill="url(#dots3)"/>
+              <rect class="group" x="12" y="20" width="344" height="264" rx="16"/>
+              <text class="gl" x="28" y="40">Server</text>
+              <rect class="group" x="384" y="20" width="344" height="264" rx="16"/>
+              <text class="gl" x="400" y="40">Players</text>
+              <path class="wire" d="M105 120 L 105 196"/>
+              <path class="wire" d="M263 120 L 263 196"/>
+              <path class="wire" d="M336 226 C 372 226, 368 90, 404 90"/>
+              <path class="wire" d="M336 226 L 404 226"/>
+              <circle class="end" cx="105" cy="196" r="3.5"/><circle class="end" cx="263" cy="196" r="3.5"/><circle class="end" cx="404" cy="90" r="3.5"/><circle class="end" cx="404" cy="226" r="3.5"/>
+              <g transform="translate(32 60)"><rect class="node" width="146" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Paper plugin</text><text class="s" x="50" y="44">Paper servers</text></g>
+              <g transform="translate(190 60)"><rect class="node" width="146" height="60" rx="12"/><rect class="ic pl" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Fabric mod</text><text class="s" x="50" y="44">Fabric servers</text></g>
+              <g transform="translate(32 196)"><rect class="hl" width="304" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Shared core</text><text class="s" x="50" y="44">Portals, travel, and streaming</text></g>
+              <g transform="translate(404 60)"><rect class="node" width="304" height="60" rx="12"/><rect class="ic ext" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">With the mod</text><text class="s" x="50" y="44">Live view and walk-through travel</text></g>
+              <g transform="translate(404 196)"><rect class="node" width="304" height="60" rx="12"/><rect class="ic ext" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Without the mod</text><text class="s" x="50" y="44">Vanilla portals</text></g>
             </svg>
           </figure>
           <p>The server sends players the chunks and entities on the far side of nearby portals. The mod draws them through the portal with custom shaders, then moves the player across without a loading screen. The Paper plugin and the Fabric mod share one server core, so both platforms behave the same.</p>
