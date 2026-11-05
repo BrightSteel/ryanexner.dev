@@ -203,7 +203,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <h3>How it works</h3>
           <figure class="canvas">
             <svg class="flow" viewBox="0 0 740 330" role="img" aria-labelledby="eb-flow">
-              <title id="eb-flow">The creator app and tenant runtime share one module registry and site schema. The creator app sends edits to the Spring Boot backend, which stores sites in PostgreSQL; the runtime loads each site's schema by hostname.</title>
+              <title id="eb-flow">The site editor and site renderer share one module registry and site schema. The editor sends edits to the Spring Boot backend, which stores sites in PostgreSQL; the renderer loads each site's schema by hostname.</title>
               <defs><pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" class="dot"/></pattern></defs>
               <rect width="740" height="330" fill="url(#dots)"/>
               <path class="wire" d="M210 72 C 250 72, 250 150, 285 150"/>
@@ -212,8 +212,8 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
               <path class="wire" d="M625 96 L 625 226"/>
               <path class="wire" d="M530 274 C 420 310, 330 310, 210 274"/>
               <circle class="end" cx="285" cy="150" r="3.5"/><circle class="end" cx="285" cy="180" r="3.5"/><circle class="end" cx="530" cy="56" r="3.5"/><circle class="end" cx="625" cy="226" r="3.5"/><circle class="end" cx="210" cy="274" r="3.5"/>
-              <g transform="translate(20 32)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic fe" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Creator app</text><text class="s" x="50" y="46">Drag-and-drop editor</text></g>
-              <g transform="translate(20 226)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic fe" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Tenant runtime</text><text class="s" x="50" y="46">One build, every site</text></g>
+              <g transform="translate(20 32)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic fe" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Site editor</text><text class="s" x="50" y="46">Drag-and-drop editor</text></g>
+              <g transform="translate(20 226)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic fe" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Site renderer</text><text class="s" x="50" y="46">One build, every site</text></g>
               <g transform="translate(285 133)"><rect class="hl" width="190" height="64" rx="12"/><rect class="ic core" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Module registry</text><text class="s" x="50" y="46">Versioned site schema</text></g>
               <g transform="translate(530 32)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic be" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">Spring Boot API</text><text class="s" x="50" y="46">REST and WebSockets</text></g>
               <g transform="translate(530 226)"><rect class="node" width="190" height="64" rx="12"/><rect class="ic db" x="14" y="20" width="24" height="24" rx="7"/><text class="t" x="50" y="29">PostgreSQL</text><text class="s" x="50" y="46">Tenants are rows</text></g>
@@ -222,13 +222,13 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
               <g transform="translate(589.0 150)"><rect class="pillbg" width="72" height="22" rx="11"/><text class="pl" x="36.0" y="15" text-anchor="middle">Persists</text></g>
             </svg>
           </figure>
-          <p>There are two apps: an editor where owners build their site, and a runtime that serves it to visitors. Both read the same site schema and use the same set of modules, so a new module shows up in both at once. A Spring Boot backend stores every site in PostgreSQL, syncs live edits over WebSockets, and receives data from each server's plugin.</p>
+          <p>There are two apps: an editor where owners build their site, and a renderer that shows the finished site to visitors. Both read the same site schema and use the same set of modules, so a new module shows up in both at once. A Spring Boot backend stores every site in PostgreSQL, syncs live edits over WebSockets, and receives data from each server's plugin.</p>
         </section>
         <section>
           <h3>Hard problems</h3>
           <ul>
-            <li><strong>Cheap multi-tenant hosting.</strong> One runtime build and one backend serve every site. A new customer is a database row, not a new server.</li>
-            <li><strong>Keeping three apps in sync.</strong> The editor, runtime, and backend share one versioned schema. Older sites upgrade automatically when they load.</li>
+            <li><strong>Cheap multi-tenant hosting.</strong> One renderer build and one backend serve every site. A new customer is a database row, not a new server.</li>
+            <li><strong>Keeping three apps in sync.</strong> The editor, renderer, and backend share one versioned schema. Older sites upgrade automatically when they load.</li>
             <li><strong>Editing together.</strong> Several people can edit a site at once, with drafts, publishing, and undo.</li>
             <li><strong>Safe deploys.</strong> Every release is tested against a copy of the production schema, then goes live with no downtime.</li>
           </ul>
