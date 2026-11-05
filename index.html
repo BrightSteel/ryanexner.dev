@@ -318,7 +318,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
             <div class="plugin">
               <div class="plugin-head"><b>GardensCrops</b><a href="https://github.com/BrightSteel/GardensCrops">GitHub ↗</a></div>
               <p>Farming with planters, sprinklers, and harvest golems.</p>
-              <ul><li>Crops grow on a farming-day schedule without forcing chunks to load, so big farms don’t slow the server.</li><li>Planters are stored by block key and loaded only when needed.</li><li>Custom events like <code>CropHarvestEvent</code> let other plugins react to farming.</li></ul>
+              <ul><li>Growth runs from a queue that handles at most 100 planters every half second, so big farms don’t cause lag spikes.</li><li>Nearby chunks load asynchronously before planters are queued. Planters in unloaded chunks wait instead of forcing a load.</li><li>The queue drops duplicates, so it can’t grow without limit.</li></ul>
             </div>
           </div>
           <p>Bedrock players connect through <a href="https://github.com/BrightSteel/GeyserGardens">GeyserGardens</a>, my fork of Geyser that adds custom blocks in a thin shim so upstream releases merge cleanly. Across the suite: 36 test classes, CI on every push, and automatic deploys.</p>
