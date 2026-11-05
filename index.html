@@ -288,24 +288,15 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <p>Each plugin is its own Gradle project and jar. They talk through small public APIs, so one can ship without redeploying the others.</p>
         </section>
         <section>
-          <h3>Engineering highlights</h3>
-          <ul>
-            <li><strong>Storage without a database.</strong> Furniture lives in chunk data. Batching writes per chunk made world generation much faster.</li>
-            <li><strong>Self-resetting worlds.</strong> Monthly resource worlds are pregenerated with backpressure on memory and load, and old ones are archived to S3.</li>
-            <li><strong>A free main thread.</strong> All MySQL access runs through async caches, so gameplay never waits on the database.</li>
-            <li><strong>Bedrock support.</strong> Native Bedrock forms, plus a GeyserMC fork that renders custom blocks.</li>
-            <li><strong>Tested and automated.</strong> 36 test classes, CI on every push, and auto-deploys.</li>
-          </ul>
-        </section>
-        <section>
           <h3>The code</h3>
           <div class="repo-list">
-            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>~16k lines of Java · 15 test classes</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensEnchants"><b>GardensEnchants</b><span>~11k lines of Java · 6 test classes</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>~16k lines of Java · 10 test classes</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>~3k lines of Java · 5 test classes</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>Fork of GeyserMC, the Bedrock-to-Java proxy</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>Monthly world resets pregenerated with backpressure, and every MySQL call behind async caches so gameplay never waits.</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensEnchants"><b>GardensEnchants</b><span>A custom enchanting menu drawn with resource-pack fonts and measured to the pixel, plus tested rarity and level rolls.</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>Furniture stored in chunk data instead of a database, with writes batched per chunk to keep world generation fast.</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>Crops grow without loading chunks. Only planters that are due get queued.</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>Custom blocks for Bedrock players, kept in a thin shim so upstream releases merge cleanly.</span></a>
           </div>
+          <p>Across the suite: 36 test classes, CI on every push, and automatic deploys.</p>
         </section>
       </div>
       <aside class="side">
