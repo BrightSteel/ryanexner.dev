@@ -290,7 +290,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
         <section>
           <h3>Engineering highlights</h3>
           <ul>
-            <li><strong>Storage without a database.</strong> Furniture lives in chunk data. Batching world-gen writes cut ~140² saves per chunk to one.</li>
+            <li><strong>Storage without a database.</strong> Furniture lives in chunk data. Batching writes per chunk made world generation much faster.</li>
             <li><strong>Self-resetting worlds.</strong> Monthly resource worlds are pregenerated with backpressure on memory and load, and old ones are archived to S3.</li>
             <li><strong>A free main thread.</strong> All MySQL access runs through async caches, so gameplay never waits on the database.</li>
             <li><strong>Bedrock support.</strong> Native Bedrock forms, plus a GeyserMC fork that renders custom blocks.</li>
