@@ -114,6 +114,14 @@ svg.flow .pl { font-size: 11px; font-weight: 500; fill: var(--muted) }
 .repo span { font-size: .88rem; color: var(--muted) }
 .repo .dep { font-family: var(--mono); font-size: .74rem; color: var(--muted); opacity: .8 }
 .repo:hover { border-color: var(--muted) }
+.plugins { display: flex; flex-direction: column; gap: 12px }
+.plugin { border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; background: var(--surface); display: flex; flex-direction: column; gap: 6px }
+.plugin-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px }
+.plugin-head b { font-family: var(--mono); font-weight: 500; font-size: .95rem }
+.plugin-head a { font-size: .85rem; color: var(--muted); text-decoration: none; white-space: nowrap } .plugin-head a:hover { color: var(--ink) }
+.plugin p { margin: 0; color: var(--ink); font-size: .95rem }
+.plugin ul { margin-top: 4px; gap: 6px; font-size: .93rem }
+.plugin code { font-family: var(--mono); font-size: .85em }
 
 footer { border-top: 1px solid var(--line); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .9rem }
 footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
@@ -290,15 +298,30 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <p>Each plugin is its own Gradle project and jar. They talk through small public APIs, so one can ship without redeploying the others.</p>
         </section>
         <section>
-          <h3>The code</h3>
-          <div class="repo-list">
-            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>Monthly world resets pregenerated with backpressure, and every MySQL call behind async caches so gameplay never waits.</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensEnchants"><b>GardensEnchants</b><span>A custom enchanting menu drawn with resource-pack fonts and measured to the pixel, plus tested rarity and level rolls.</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>Furniture stored in chunk data instead of a database, with writes batched per chunk to keep world generation fast.</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>Crops grow on a schedule without forcing chunks to load, so big farms don’t slow the server.</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>Custom blocks for Bedrock players, kept in a thin shim so upstream releases merge cleanly.</span></a>
+          <h3>The plugins</h3>
+          <div class="plugins">
+            <div class="plugin">
+              <div class="plugin-head"><b>GardensPlayers</b><a href="https://github.com/BrightSteel/GardensPlayers">GitHub ↗</a></div>
+              <p>The core plugin: economy, quests, shops, warps, and player data.</p>
+              <ul><li>Every MySQL call goes through async Caffeine caches, so gameplay never waits on the database.</li><li>Resource worlds reset monthly. New worlds are pregenerated with backpressure, and old ones are archived to S3.</li><li>Its economy registers as a Vault provider, so other plugins share the same currency.</li></ul>
+            </div>
+            <div class="plugin">
+              <div class="plugin-head"><b>GardensEnchants</b><a href="https://github.com/BrightSteel/GardensEnchants">GitHub ↗</a></div>
+              <p>Custom enchanting that replaces the vanilla system.</p>
+              <ul><li>The enchanting menu is drawn with resource-pack font glyphs, measured to the pixel.</li><li>Offers roll by rarity and level, with unit tests on the odds.</li><li>Runes, relics, and area-break effects hook into game events.</li></ul>
+            </div>
+            <div class="plugin">
+              <div class="plugin-head"><b>GardensFurniture</b><a href="https://github.com/BrightSteel/GardensFurniture">GitHub ↗</a></div>
+              <p>The custom block framework the other plugins build on.</p>
+              <ul><li>Placed furniture lives in chunk data instead of a database, so it loads with the world.</li><li>Writes are batched per chunk to keep world generation fast.</li><li>Bedrock players see the same furniture through Geyser.</li></ul>
+            </div>
+            <div class="plugin">
+              <div class="plugin-head"><b>GardensCrops</b><a href="https://github.com/BrightSteel/GardensCrops">GitHub ↗</a></div>
+              <p>Farming with planters, sprinklers, and harvest golems.</p>
+              <ul><li>Crops grow on a farming-day schedule without forcing chunks to load, so big farms don’t slow the server.</li><li>Planters are stored by block key and loaded only when needed.</li><li>Custom events like <code>CropHarvestEvent</code> let other plugins react to farming.</li></ul>
+            </div>
           </div>
-          <p>Across the suite: 36 test classes, CI on every push, and automatic deploys.</p>
+          <p>Bedrock players connect through <a href="https://github.com/BrightSteel/GeyserGardens">GeyserGardens</a>, my fork of Geyser that adds custom blocks in a thin shim so upstream releases merge cleanly. Across the suite: 36 test classes, CI on every push, and automatic deploys.</p>
         </section>
       </div>
       <aside class="side">
