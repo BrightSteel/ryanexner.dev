@@ -193,7 +193,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
     <div class="phead">
       <span class="eyebrow">Founder and sole engineer · Launched 2026</span>
       <h2>EnderBeam</h2>
-      <p class="lead">Hosted, branded websites for Minecraft servers. Owners install a plugin, drag modules onto a page, and get a live site that ties into their server, their Discord, and their store.</p>
+      <p class="lead">Hosted websites for Minecraft servers. Owners install a plugin, drag modules onto a page, and publish a site that connects to their server, Discord, and store.</p>
       <a class="btn" href="https://enderbeam.com">Visit enderbeam.com ↗</a>
     </div>
     <div class="media hero-media"><svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of the EnderBeam builder"><use href="#cover-end"/></svg><img src="img/enderbeam.jpg" alt="The EnderBeam builder" loading="lazy" onerror="this.remove()"></div>
@@ -222,15 +222,15 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
               <g transform="translate(589.0 150)"><rect class="pillbg" width="72" height="22" rx="11"/><text class="pl" x="36.0" y="15" text-anchor="middle">Persists</text></g>
             </svg>
           </figure>
-          <p>Two apps share one module registry and one site schema. The creator app edits a site's schema; the tenant runtime, a single static build, looks up the schema by hostname and renders the same modules for visitors. A Spring Boot backend stores every tenant's site in PostgreSQL, handles live collaboration over WebSockets, and takes data that each server's plugin pushes in. Adding a module to the registry once makes it available in the editor and on every live site.</p>
+          <p>There are two apps: an editor where owners build their site, and a runtime that serves it to visitors. Both read the same site schema and use the same set of modules, so a new module shows up in both at once. A Spring Boot backend stores every site in PostgreSQL, syncs live edits over WebSockets, and receives data from each server's plugin.</p>
         </section>
         <section>
           <h3>Hard problems</h3>
           <ul>
-            <li><strong>Multi-tenant hosting that stays cheap.</strong> One static runtime build and one backend serve every customer site. Each site's schema is resolved by hostname, so a new tenant is a database row, not a new server.</li>
-            <li><strong>Keeping three apps in sync.</strong> A versioned JSON site schema with Zod validation is the contract between the editor, the runtime, and the backend. Old schemas migrate on read, and stored rows migrate through Flyway.</li>
-            <li><strong>Several people editing at once.</strong> Live collaboration runs over WebSockets, with drafts, publishing, and undo/redo.</li>
-            <li><strong>Deploying without breaking live sites.</strong> CI runs type checks, tests, and a migration rehearsal against the production schema, then deploys blue/green.</li>
+            <li><strong>Cheap multi-tenant hosting.</strong> One runtime build and one backend serve every site. A new customer is a database row, not a new server.</li>
+            <li><strong>Keeping three apps in sync.</strong> The editor, runtime, and backend share one versioned schema. Older sites upgrade automatically when they load.</li>
+            <li><strong>Editing together.</strong> Several people can edit a site at once, with drafts, publishing, and undo.</li>
+            <li><strong>Safe deploys.</strong> Every release is tested against a copy of the production schema, then goes live with no downtime.</li>
           </ul>
         </section>
       </div>
