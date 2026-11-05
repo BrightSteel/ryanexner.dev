@@ -52,6 +52,7 @@ p { margin: 0; max-width: 62ch }
 .media { position: relative; aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; background: radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--glow) 28%, transparent), transparent 70%), var(--raised); border-bottom: 1px solid var(--line) }
 .card.wide .media { aspect-ratio: auto; min-height: 300px; border-bottom: 0; border-right: 1px solid var(--line) }
 .media svg, .media img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover }
+.media img.contain { object-fit: contain; padding: 5% 6% 0; box-sizing: border-box; object-position: center bottom }
 .media .soon { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-family: var(--mono); font-size: .8rem }
 .card .body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1 }
 .card.wide .body { justify-content: center; padding: 32px }
@@ -157,7 +158,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
     <section class="grid" aria-label="Projects">
       <a class="card wide end" href="#enderbeam">
         <span class="arrow" aria-hidden="true">↗</span>
-        <span class="media"><svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of the EnderBeam page builder"><use href="#cover-end"/></svg></span>
+        <span class="media"><img class="contain" src="img/enderbeam.webp" alt="A GardensMC site built with EnderBeam, on a laptop" loading="lazy"></span>
         <span class="body">
           <span class="eyebrow">SaaS · Launched 2026</span>
           <h3>EnderBeam</h3>
@@ -196,7 +197,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
       <p class="lead">Hosted websites for Minecraft servers. Owners install a plugin, drag modules onto a page, and publish a site that connects to their server, Discord, and store.</p>
       <a class="btn" href="https://enderbeam.com">Visit enderbeam.com ↗</a>
     </div>
-    <div class="media hero-media"><svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Illustration of the EnderBeam builder"><use href="#cover-end"/></svg><img src="img/enderbeam.jpg" alt="The EnderBeam builder" loading="lazy" onerror="this.remove()"></div>
+    <div class="media hero-media"><img class="contain" src="img/enderbeam.webp" alt="A GardensMC site built with EnderBeam, on a laptop" loading="lazy"></div>
     <div class="cols">
       <div class="prose">
         <section>
