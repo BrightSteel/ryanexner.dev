@@ -250,14 +250,14 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
     <div class="phead">
       <span class="eyebrow">Founder and engineer · Since 2022</span>
       <h2>GardensMC</h2>
-      <p class="lead">A survival Minecraft community I run, with 736 registered players and 300+ active each month across Java and Bedrock. Most of its gameplay comes from a suite of plugins I wrote, which share APIs and build on each other to add an economy, quests, custom enchanting, furniture, and farming.</p>
+      <p class="lead">A survival Minecraft community I run, with 736 registered players and 300+ active each month across Java and Bedrock. Nearly all of its gameplay runs on four plugins I wrote.</p>
       <a class="btn" href="https://gardensmc.com">Visit gardensmc.com ↗</a>
     </div>
     <div class="media hero-media"><img src="img/gardensmc.jpg" alt="GardensMC in game" loading="lazy" onerror="this.remove()"><span class="soon">Screenshot coming soon</span></div>
     <div class="cols">
       <div class="prose">
         <section>
-          <h3>How the plugins fit together</h3>
+          <h3>Architecture</h3>
           <figure class="canvas">
             <svg class="flow" viewBox="0 0 740 392" role="img" aria-labelledby="gs-flow">
               <title id="gs-flow">Java players join the Paper server directly, and Bedrock players join through the GeyserGardens proxy. On the server, GardensFurniture is the foundation that feeds into GardensPlayers, GardensEnchants, and GardensCrops. GardensPlayers stores player data in MySQL and archives resource worlds to S3.</title>
@@ -285,32 +285,33 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
               <g transform="translate(585 232)"><rect class="node" width="140" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">S3</text><text class="s" x="50" y="44">Archived worlds</text></g>
             </svg>
           </figure>
-          <p>GardensFurniture is the foundation. It’s a custom blocks framework that the other three plugins build on. GardensEnchants adds enchanting, and GardensCrops adds farming. GardensPlayers ties it all together with the economy, quests, and shops. Each plugin exposes a small API for the others, so each can ship on its own.</p>
+          <p>Each plugin is its own Gradle project and jar. They talk through small public APIs, so one can ship without redeploying the others.</p>
         </section>
         <section>
-          <h3>Highlights</h3>
+          <h3>Engineering highlights</h3>
           <ul>
-            <li><strong>Resource worlds that reset themselves.</strong> GardensPlayers generates fresh resource worlds every month and archives the old ones to S3-compatible storage with multipart uploads.</li>
-            <li><strong>Fast player data.</strong> Player data lives in MySQL through HikariCP, with a Caffeine cache in front for hot reads.</li>
-            <li><strong>Bedrock players see everything.</strong> I maintain a fork of GeyserMC, the Bedrock-to-Java proxy, so custom blocks and furniture render for Bedrock players too. Fork changes sit in a thin shim so upstream releases merge cleanly.</li>
-            <li><strong>Tested and automated.</strong> Unit tests and GitHub Actions CI run across the suite, and the Geyser fork deploys itself to the server.</li>
+            <li><strong>Storage without a database.</strong> Furniture state lives in each chunk’s own data, behind a cache that loads with the chunk. World generation used to re-encode a chunk’s whole store for every block placed, which was quadratic. Buffering per chunk and writing once made it linear.</li>
+            <li><strong>Monthly world resets with backpressure.</strong> Replacement worlds are generated ahead of time, one at a time. Generation pauses when memory, loaded chunks, or pending furniture get too high, and resumes when they drop. A reset swaps in a ready world, archives the old one to S3, and warns staff when fewer than three are left.</li>
+            <li><strong>Keeping the main thread free.</strong> Minecraft runs game logic on a single thread, so every MySQL call goes through async Caffeine caches. Expensive reads like the quest leaderboard are cached for minutes instead of queried on every menu open.</li>
+            <li><strong>Bedrock support.</strong> Key menus switch to native Bedrock forms for Bedrock players. A GeyserMC fork renders custom blocks for them, with changes kept in a thin shim so upstream releases merge cleanly.</li>
+            <li><strong>Tested and automated.</strong> 36 test classes cover the economy, quests, crop growth, furniture rotation, and more. CI runs on every push, and the Geyser fork deploys itself to the server.</li>
           </ul>
         </section>
         <section>
           <h3>The code</h3>
           <div class="repo-list">
-            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers"><b>GardensPlayers</b><span>Core platform: economy, quests, shops, warps, resource worlds</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensEnchants"><b>GardensEnchants</b><span>Custom enchantments, rarities, runes, enchanting table</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture"><b>GardensFurniture</b><span>Persistent interactive furniture and custom blocks</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GardensCrops"><b>GardensCrops</b><span>Planters, sprinklers, watering cans, harvest golems</span></a>
-            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens"><b>GeyserGardens</b><span>GeyserMC fork with custom block support for Bedrock</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensPlayers">\1<span>~16k lines of Java · 15 test classes</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensEnchants">\1<span>~11k lines of Java · 6 test classes</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensFurniture">\1<span>~16k lines of Java · 10 test classes</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GardensCrops">\1<span>~3k lines of Java · 5 test classes</span></a>
+            <a class="repo" href="https://github.com/BrightSteel/GeyserGardens">\1<span>Fork of GeyserMC, the Bedrock-to-Java proxy</span></a>
           </div>
         </section>
       </div>
       <aside class="side">
         <dl>
           <div><dt>Role</dt><dd>Founder; wrote and runs the plugins and infrastructure</dd></div>
-          <div><dt>At a glance</dt><dd>736 registered players, 300+ monthly active, 4 plugins, 420+ commits</dd></div>
+          <div><dt>At a glance</dt><dd>4 plugins, ~45k lines of Java, 36 test classes, 420+ commits</dd></div>
           <div><dt>Stack</dt><dd class="chips"><span class="chip">Java 25</span><span class="chip">Paper API</span><span class="chip">Gradle</span><span class="chip">MySQL</span><span class="chip">HikariCP</span><span class="chip">Caffeine</span><span class="chip">GitHub Actions</span><span class="chip">Docker</span><span class="chip">Cloudflare</span></dd></div>
         </dl>
       </aside>
