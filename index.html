@@ -313,7 +313,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
             <div class="plugin">
               <div class="plugin-head"><b>GardensFurniture</b><a href="https://github.com/BrightSteel/GardensFurniture">GitHub ↗</a></div>
               <p>The custom block framework the other plugins build on.</p>
-              <ul><li>Placed furniture lives in chunk data instead of a database, so it loads with the world.</li><li>Writes are batched per chunk to keep world generation fast.</li><li>Bedrock players see the same furniture through Geyser.</li></ul>
+              <ul><li>Placed furniture lives in chunk data instead of a database, so it loads with the world.</li><li>Custom blocks are drawn by rewriting outgoing chunk and block packets. Chunk packets are patched off the main thread, so players don’t get ping spikes.</li><li>Writes are batched per chunk to keep world generation fast.</li><li>Bedrock players see the same furniture through Geyser.</li></ul>
             </div>
             <div class="plugin">
               <div class="plugin-head"><b>GardensCrops</b><a href="https://github.com/BrightSteel/GardensCrops">GitHub ↗</a></div>
