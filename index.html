@@ -10,17 +10,17 @@
 :root {
   --bg: #0b0b0d; --surface: #131316; --raised: #1a1a1e; --ink: #ededf0; --muted: #8c8c96; --line: #26262c;
   --link: #ededf0;
-  --end: #8b7cf6; --moss: #4fb477; --amber: #f0a25e;
+  --end: #8b7cf6; --moss: #4fb477; --amber: #f0a25e; --sky: #5aa9e6;
   --font: "Geist", "Inter", "Segoe UI", system-ui, sans-serif;
   --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
   --bg: #fafafa; --surface: #ffffff; --raised: #f3f3f5; --ink: #111114; --muted: #6b6b75; --line: #e6e6ea; --link: #111114;
-  --end: #6a58c9; --moss: #2f8a55; --amber: #c9702a; color-scheme: light } }
+  --end: #6a58c9; --moss: #2f8a55; --amber: #c9702a; --sky: #2b78b8; color-scheme: light } }
 :root[data-theme="light"] {
   --bg: #fafafa; --surface: #ffffff; --raised: #f3f3f5; --ink: #111114; --muted: #6b6b75; --line: #e6e6ea; --link: #111114;
-  --end: #6a58c9; --moss: #2f8a55; --amber: #c9702a; color-scheme: light }
+  --end: #6a58c9; --moss: #2f8a55; --amber: #c9702a; --sky: #2b78b8; color-scheme: light }
 
 * { box-sizing: border-box }
 [hidden] { display: none !important }
@@ -48,7 +48,7 @@ p { margin: 0; max-width: 62ch }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px }
 .card { --glow: var(--moss); position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--ink); min-width: 0 }
 .card.wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1.25fr 1fr }
-.card.end { --glow: var(--end) } .card.amber { --glow: var(--amber) }
+.card.end { --glow: var(--end) } .card.amber { --glow: var(--amber) } .card.sky { --glow: var(--sky) }
 .media { position: relative; aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; background: radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--glow) 28%, transparent), transparent 70%), var(--raised); border-bottom: 1px solid var(--line) }
 .card.wide .media { aspect-ratio: auto; min-height: 300px; border-bottom: 0; border-right: 1px solid var(--line) }
 .media svg, .media img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover }
@@ -74,7 +74,7 @@ p { margin: 0; max-width: 62ch }
 @media (max-width: 720px) { .grid { grid-template-columns: 1fr } .card.wide { grid-template-columns: 1fr } .card.wide .media { aspect-ratio: 16 / 10; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line) } .card.wide .body { padding: 22px 24px 24px } }
 
 .page { --glow: var(--moss); display: flex; flex-direction: column; gap: 36px; padding-top: 16px }
-.page.end { --glow: var(--end) } .page.amber { --glow: var(--amber) }
+.page.end { --glow: var(--end) } .page.amber { --glow: var(--amber) } .page.sky { --glow: var(--sky) }
 .back { color: var(--muted); text-decoration: none; font-size: .92rem; width: max-content }
 .back:hover { color: var(--ink) }
 .phead { display: flex; flex-direction: column; gap: 14px }
@@ -200,10 +200,70 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
           <span class="chips"><span class="chip">Java</span><span class="chip">Fabric</span><span class="chip">GLSL</span></span>
         </span>
       </a>
+      <a class="card wide sky" href="#map">
+        <span class="arrow" aria-hidden="true">↗</span>
+        <span class="media"><img src="img/endermap.jpg" alt="The EnderMap web map of GardensMC" loading="lazy" onerror="this.remove()"><span class="soon">Screenshot coming soon</span></span>
+        <span class="body">
+          <span class="eyebrow">Live on GardensMC</span>
+          <h3>EnderMap</h3>
+          <p>A live web map of a Minecraft server, drawn top-down like Stardew Valley, with players and mobs moving in real time.</p>
+          <span class="chips"><span class="chip">Java</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">SSE</span></span>
+        </span>
+      </a>
     </section>
   </main>
 
-  <article data-view="enderbeam" class="page end" hidden>
+  <article data-view="map" class="page sky" hidden>
+    <a class="back" href="#home">← All projects</a>
+    <div class="phead">
+      <span class="eyebrow">Solo project · Live on GardensMC</span>
+      <h2>EnderMap</h2>
+      <p class="lead">A live web map for Minecraft servers, drawn top-down like Stardew Valley. Players and mobs move around it in real time, in their real skins.</p>
+      <a class="btn" href="https://gardensmc.com/map">View the live map ↗</a>
+    </div>
+    <div class="media hero-media"><img src="img/endermap.jpg" alt="The EnderMap web map of GardensMC" loading="lazy" onerror="this.remove()"><span class="soon">Screenshot coming soon</span></div>
+    <div class="cols">
+      <div class="prose">
+        <section>
+          <h3>How it works</h3>
+          <figure class="canvas">
+            <svg class="flow" viewBox="0 0 740 200" role="img" aria-labelledby="em-flow">
+              <title id="em-flow">The EnderMap plugin on the Paper server reads the blocks the map can see into small tiles. A built-in web server serves the tiles to the browser, which draws them with WebGL 2. Live player and mob updates stream from the plugin to the browser over Server-Sent Events.</title>
+              <defs><pattern id="dots4" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" class="dot"/></pattern></defs>
+              <rect width="740" height="200" fill="url(#dots4)"/>
+              <path class="wire" d="M180 60 L 200 60"/><path class="wire" d="M360 60 L 380 60"/><path class="wire" d="M540 60 L 560 60"/>
+              <path class="wire" d="M100 90 V 150 Q 100 160, 110 160 H 450 Q 460 160, 460 150 V 90"/>
+              <circle class="end" cx="200" cy="60" r="3.5"/><circle class="end" cx="380" cy="60" r="3.5"/><circle class="end" cx="560" cy="60" r="3.5"/><circle class="end" cx="460" cy="90" r="3.5"/>
+              <g transform="translate(20 30)"><rect class="hl" width="160" height="60" rx="12"/><rect class="ic core" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Paper plugin</text><text class="s" x="50" y="44">Reads visible blocks</text></g>
+              <g transform="translate(200 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic db" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Tile store</text><text class="s" x="50" y="44">About 10 KB a tile</text></g>
+              <g transform="translate(380 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic be" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Web server</text><text class="s" x="50" y="44">JDK HTTP, no extras</text></g>
+              <g transform="translate(560 30)"><rect class="node" width="160" height="60" rx="12"/><rect class="ic fe" x="14" y="18" width="24" height="24" rx="7"/><text class="t" x="50" y="27">Browser</text><text class="s" x="50" y="44">WebGL 2 renderer</text></g>
+              <g transform="translate(195 148)"><rect class="pillbg" width="170" height="24" rx="12"/><text class="pl" x="85" y="16" text-anchor="middle">Live players and mobs (SSE)</text></g>
+            </svg>
+          </figure>
+          <p>For each chunk, the plugin stores only what the map camera can see. In the browser, web workers turn each tile into a list of blocks, and the GPU draws them as instanced quads. Players and mobs stream in over Server-Sent Events.</p>
+        </section>
+        <section>
+          <h3>Hard problems</h3>
+          <ul>
+            <li><strong>Small, durable tiles.</strong> Each 128×128-block tile is about 10 KB. Block ids never change, so tiles survive restarts and resource-pack changes.</li>
+            <li><strong>Drawing without sorting.</strong> The GPU’s depth test replaces a painter’s sort, so players hide behind trees, walls, and roofs with a faint outline.</li>
+            <li><strong>Edits show up fast.</strong> Blocks placed or broken appear for everyone within a few hundred milliseconds.</li>
+            <li><strong>Looks like the game.</strong> Textures, animated water, mob models, and the day-night sky all come from the game’s own files and the server’s resource pack.</li>
+          </ul>
+        </section>
+      </div>
+      <aside class="side">
+        <dl>
+          <div><dt>Role</dt><dd>Solo: design and implementation</dd></div>
+          <div><dt>At a glance</dt><dd>Live on GardensMC, players at 10 updates a second, no web framework</dd></div>
+          <div><dt>Stack</dt><dd class="chips"><span class="chip">Java</span><span class="chip">Paper</span><span class="chip">WebGL 2</span><span class="chip">JavaScript</span><span class="chip">Web Workers</span><span class="chip">SSE</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </article>
+
+<article data-view="enderbeam" class="page end" hidden>
     <a class="back" href="#home">← All projects</a>
     <div class="phead">
       <span class="eyebrow">Founder and sole engineer · Launched 2026</span>
@@ -245,7 +305,7 @@ footer a { color: var(--muted) } footer a:hover { color: var(--ink) }
             <li><strong>Cheap multi-tenant hosting.</strong> One renderer build and one backend serve every site. A new customer is simply a database row instead of a new app.</li>
             <li><strong>Keeping three apps in sync.</strong> The editor, renderer, and backend share one versioned schema. Older sites upgrade automatically when they load.</li>
             <li><strong>Editing together.</strong> Several people can edit a site at once, with drafts, publishing, and undo.</li>
-            <li><strong>Safe deploys.</strong> Every release is tested against a copy of the production schema, then goes live with no downtime.</li>
+            <li><strong>One plugin for every server.</strong> Server owners install one jar that runs on Spigot and Paper, with Velocity and BungeeCord versions for networks. Optional bridges pull in data from LuckPerms, VotingPlugin, LiteBans, and more.</li><li><strong>Safe deploys.</strong> Every release is tested against a copy of the production schema, then goes live with no downtime.</li>
           </ul>
         </section>
       </div>
